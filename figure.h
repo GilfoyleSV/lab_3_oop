@@ -14,7 +14,7 @@ class Figure{
     Figure(Figure&& other) noexcept;
     virtual ~Figure() = default;
 
-    std::pair<double, double> geom_centre();
+    std::pair<double, double> geom_centre() const;
     friend std::ostream& operator<<(std::ostream& os, const Figure& fig);
     friend std::istream& operator>>(std::istream& is, Figure& figure);
     operator double() const;

@@ -28,7 +28,6 @@ Figure::Figure(Figure&& other) noexcept{
 }
 
 std::istream& operator>>(std::istream& is, Figure& figure){
-    figure.coords.clear();
     size_t num_of_points;
 
     is >> num_of_points;
@@ -36,7 +35,7 @@ std::istream& operator>>(std::istream& is, Figure& figure){
     if (!is){
         throw std::invalid_argument("Неправильный ввод: не удалось считать количество точек.");
     }
-
+    figure.coords.clear();
     figure.number_of_coords = num_of_points;
     
     for (size_t i = 0; i != num_of_points; i++){
@@ -66,7 +65,11 @@ std::ostream& operator<<(std::ostream& os, const Figure& figure){
     return os;
 }
 
-std::pair<double, double> Figure::geom_centre(){
+std::pair<double, double> Figure::geom_centre() const{
+    if (this->number_of_coords == 0){
+        throw std::runtime_error("Фигура не имеет точек, невозможно вычислить геометрический центр.");
+    }
+
     double x_sum = 0;
     double y_sum = 0;
 
@@ -83,8 +86,10 @@ std::pair<double, double> Figure::geom_centre(){
 
 Figure::operator double() const {
     double s = 0;
-
-    for (int i=0; i != this->number_of_coords - 1; i++){
+    if (this->number_of_coords < 3){
+        return 0.0;
+    }
+    for (size_t i=0; i != this->number_of_coords - 1; i++){
         double x, y, x1, y1;
         x = this->coords[i].first;
         y = this->coords[i].second;
