@@ -1,6 +1,7 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 #include "figure.h"
+#include <string>
 
 class Array{
     public:
@@ -15,7 +16,7 @@ class Array{
     void print_info() const;
     double total_area() const;
     void remove_figure(size_t i);
-    void add_figure(const Figure* fig);
+    void add_figure(Figure* fig);
     ~Array() noexcept;
 
     private:

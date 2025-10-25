@@ -2,6 +2,15 @@
 #include <stdexcept>
 #include <math.h>
 
+Figure::Figure(){
+    this->number_of_coords = 0;
+    this->coords = {};
+}
+
+Figure::Figure(size_t number_of_coords){
+    this->number_of_coords = number_of_coords;
+}
+
 Figure::Figure(std::vector<std::pair<double, double>>& coords){
     this->number_of_coords = coords.size();
     this->coords = coords;
@@ -15,6 +24,7 @@ Figure::Figure(const Figure& other){
 Figure::Figure(Figure&& other) noexcept{
     this->number_of_coords = other.number_of_coords;
     this->coords = std::move(other.coords);
+    other.number_of_coords = 0;
 }
 
 std::istream& operator>>(std::istream& is, Figure& figure){
@@ -23,27 +33,35 @@ std::istream& operator>>(std::istream& is, Figure& figure){
 
     is >> num_of_points;
 
-    if (!is || num_of_points == 0){
-        throw std::invalid_argument("Неправильный ввод");
+    if (!is){
+        throw std::invalid_argument("Неправильный ввод: не удалось считать количество точек.");
     }
 
     figure.number_of_coords = num_of_points;
     
-    for (int i=0;i!=num_of_points;i++){
+    for (size_t i = 0; i != num_of_points; i++){
         double x, y;
         is >> x >> y;
         if (!is){
-            throw std::invalid_argument("Неправильный ввод");
+            throw std::invalid_argument("Неправильный ввод: не удалось считать координаты.");
         }
         figure.coords.push_back({x, y});
+    }
+
+    if (!is){
+        throw std::invalid_argument("Неправильный ввод: ошибка после считывания данных.");
+    }
+    
+    if (!figure.is_valid()){
+        throw std::invalid_argument("Введенные данные не соответствуют требованиям фигуры.");
     }
 
     return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const Figure& figure){
-    for (int i=0; i != figure.number_of_coords; i++){
-        os << figure.coords[i].first << figure.coords[i].second << std::endl;
+    for (size_t i = 0; i != figure.number_of_coords; i++){
+        os << "(" << figure.coords[i].first << ", " << figure.coords[i].second << ")" << std::endl;
     }
     return os;
 }
@@ -74,7 +92,8 @@ Figure::operator double() const {
         y1 = this->coords[i + 1].second;
         s += std::abs(x * y1 - y * x1);
     }
-    return s * 1/2;
+    
+    return std::abs(s) / 2.0;
 }
 
 Figure& Figure::operator=(const Figure& other){
@@ -85,14 +104,23 @@ Figure& Figure::operator=(const Figure& other){
     return *this;
 }
 
-Figure& Figure::operator=(Figure&& other){
+Figure& Figure::operator=(Figure&& other) noexcept{
     if (this != &other){
         this->coords = std::move(other.coords);
-        this->number_of_coords = std::move(other.number_of_coords);
+        this->number_of_coords = other.number_of_coords;
+        other.number_of_coords = 0; 
     }
     return *this;
 }
 
+const std::string Figure::who_am_i() const{
+    return "Default figure";
+}
+
 bool Figure::operator==(const Figure& other) const{
     return this->coords == other.coords;
+}
+
+bool Figure::is_valid() const{
+    return this->number_of_coords >= 0;
 }
