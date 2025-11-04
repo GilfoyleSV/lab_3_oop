@@ -7,7 +7,7 @@
 
 int main(){
 
-    std::vector<std::pair<double, double>> rhombus_coords = {{0, 0}, {2, 2}, {4, 0}, {2, -2}};
+    std::vector<std::pair<double, double>> rhombus_coords = {{2, 2}, {4, 0},{2, -2}, {0, 0} };
 
     Rhombus rhombus(rhombus_coords);
     std::cout << rhombus.who_am_i() << " area: " << double(rhombus) << std::endl;

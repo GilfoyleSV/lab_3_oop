@@ -85,19 +85,19 @@ std::pair<double, double> Figure::geom_centre() const{
 }
 
 Figure::operator double() const {
-    double s = 0;
-    if (this->number_of_coords < 3){
+    size_t n = this->number_of_coords;
+    if (n < 3)
         return 0.0;
+
+    double s = 0;
+    for (size_t i = 0; i < n; ++i) {
+        double x1 = this->coords[i].first;
+        double y1 = this->coords[i].second;
+        double x2 = this->coords[(i + 1) % n].first;
+        double y2 = this->coords[(i + 1) % n].second;
+        s += x1 * y2 - x2 * y1;
     }
-    double x, y, x1, y1;
-    for (size_t i=0; i != this->number_of_coords; i++){
-        x = this->coords[i].first;
-        y = this->coords[i].second;
-        double x2 = this->coords[(i + 1) % this->number_of_coords].first;
-        double y2 = this->coords[(i + 1) % this->number_of_coords].second;
-        s += std::abs(x * y1 - y * x1);
-    }
-    
+
     return std::abs(s) / 2.0;
 }
 
