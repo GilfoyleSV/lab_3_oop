@@ -1,5 +1,4 @@
-#ifndef ARRAY_H
-#define ARRAY_H
+#pragma once
 #include "figure.h"
 #include <string>
 
@@ -26,5 +25,3 @@ class Array{
 
     void grow();
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef FIGURE_H
-#define FIGURE_H
+#pragma once
 
 #include <initializer_list>
 #include <utility>
@@ -31,5 +30,3 @@ class Figure{
     size_t number_of_coords;
     std::vector<std::pair<double, double>> coords;
 };
-
-#endif

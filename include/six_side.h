@@ -1,3 +1,5 @@
+#pragma once
+
 #include "figure.h"
 
 class Six_Side : public Figure {

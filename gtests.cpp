@@ -153,7 +153,7 @@ TEST(FiveSideTest, ConstructorWithValidCoords) {
 
 TEST(FiveSideTest, ConstructorWithInvalidCoords) {
     Five_Side five;
-    std::istringstream input("3\n0 0\n1 0\n1 1\n"); // Всего 3 точки вместо 5
+    std::istringstream input("3\n0 0\n1 0\n1 1\n");
     
     EXPECT_THROW(input >> five, std::invalid_argument);
 }
@@ -164,7 +164,6 @@ TEST(FiveSideTest, GeometricCentreFiveSide) {
     input >> five;
     
     auto centre = five.geom_centre();
-    // Центр масс пяти точек
     double expected_x = (0 + 4 + 4 + 2 + 0) / 5.0;
     double expected_y = (0 + 0 + 4 + 6 + 4) / 5.0;
     
@@ -197,7 +196,6 @@ TEST(FiveSideTest, InputOperatorInvalidFiveSide) {
     EXPECT_THROW(input >> five, std::invalid_argument);
 }
 
-// Тест полиморфного поведения
 TEST(PolymorphismTest, WhoAmIThroughBasePointer) {
     Five_Side five;
     std::istringstream input("5\n0 0\n1 0\n1.5 0.5\n1 1\n0 1\n");
@@ -217,7 +215,6 @@ TEST(PolymorphismTest, AreaThroughBasePointer) {
     EXPECT_GT(area, 0.0);
 }
 
-// Тест для демонстрации работы с разными фигурами через базовый класс
 TEST(MultipleFiguresTest, MixedFigures) {
     Figure triangle;
     std::istringstream triangle_input("3\n0 0\n3 0\n0 4\n");

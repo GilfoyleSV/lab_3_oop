@@ -1,5 +1,4 @@
-#ifndef RHOMBUS_H
-#define RHOMBUS_H
+#pragma once
 
 #include "figure.h"
 #include <vector>
@@ -13,6 +12,3 @@ public:
     bool is_valid() const override; 
     ~Rhombus() override = default;
 };
-
-
-#endif

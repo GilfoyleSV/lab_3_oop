@@ -5,7 +5,6 @@ project(FigureInheritance CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Основное приложение
 set(SOURCE_FILES
     main.cpp
     src/figure.cpp
@@ -30,7 +29,6 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-# Тесты - нужно указать те же исходные файлы, что и в основном приложении (кроме main.cpp)
 add_executable(
   test_lab
   ./gtests.cpp
