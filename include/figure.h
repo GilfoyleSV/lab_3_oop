@@ -7,7 +7,7 @@
 
 class Figure{
     public:
-    Figure();
+    Figure() = default;
     Figure(std::vector<std::pair<double, double>>& coords);
     Figure(const Figure& other);
     Figure(Figure&& other) noexcept;
@@ -25,8 +25,7 @@ class Figure{
     bool operator==(const Figure& other) const;
 
     protected:
-    virtual bool is_valid() const;
-    Figure(size_t number_of_coords);
+    virtual bool is_valid() const = 0;
     size_t number_of_coords;
     std::vector<std::pair<double, double>> coords;
 };

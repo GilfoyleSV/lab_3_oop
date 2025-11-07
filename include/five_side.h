@@ -1,10 +1,11 @@
 #pragma once
 
 #include "figure.h"
+#include <vector>
 
 class Five_Side : public Figure {
     public:
-    Five_Side() : Figure(5) {} 
+    Five_Side();
     Five_Side(std::vector<std::pair<double, double>>& coords); 
 
     const std::string who_am_i() const override;

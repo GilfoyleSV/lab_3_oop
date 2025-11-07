@@ -4,8 +4,8 @@
 #include <vector>
 
 class Rhombus : public Figure {
-public:
-    Rhombus() : Figure(4) {} 
+    public:
+    Rhombus(); 
     Rhombus(std::vector<std::pair<double, double>>& coords); 
 
     const std::string who_am_i() const override;

@@ -1,11 +1,15 @@
 #include "five_side.h"
 
-Five_Side::Five_Side(std::vector<std::pair<double, double>>& coords): Figure(coords) {
-    if (!this->is_valid()){
-        throw std::invalid_argument("Некорректные координаты для пятиугольника: фигура не является пятиугольником или имеет не 5 точек.");
-    }
+Five_Side::Five_Side(){
+    this->number_of_coords = 5;
+    this->coords = {};
 }
 
+Five_Side::Five_Side(std::vector<std::pair<double, double>>& coords): Figure(coords) {
+    if (!this->is_valid()){
+        throw std::invalid_argument("Некорректные координаты для фигуры.");
+    }
+}
 
 const std::string Five_Side::who_am_i() const {
     return "Five_Side";

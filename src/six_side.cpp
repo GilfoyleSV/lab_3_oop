@@ -1,11 +1,15 @@
 #include "six_side.h"
 
-Six_Side::Six_Side(std::vector<std::pair<double, double>>& coords): Figure(coords) {
-    if (!this->is_valid()){
-        throw std::invalid_argument("Некорректные координаты для шестиугольника: фигура не является шестиугольником или имеет не 6 точек.");
-    }
+Six_Side::Six_Side(){
+    this->number_of_coords = 6;
+    this->coords = {};
 }
 
+Six_Side::Six_Side(std::vector<std::pair<double, double>>& coords): Figure(coords) {
+    if (!this->is_valid()){
+        throw std::invalid_argument("Некорректные координаты для фигуры.");
+    }
+}
 
 const std::string Six_Side::who_am_i() const {
     return "Six_Side";

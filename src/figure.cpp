@@ -2,16 +2,10 @@
 #include <stdexcept>
 #include <math.h>
 
-Figure::Figure(){
-    this->number_of_coords = 0;
-    this->coords = {};
-}
-
-Figure::Figure(size_t number_of_coords){
-    this->number_of_coords = number_of_coords;
-}
-
 Figure::Figure(std::vector<std::pair<double, double>>& coords){
+    if (coords.empty()){
+        throw std::invalid_argument("Координаты не могут быть пустыми.");
+    }
     this->number_of_coords = coords.size();
     this->coords = coords;
 }
@@ -66,7 +60,7 @@ std::ostream& operator<<(std::ostream& os, const Figure& figure){
 }
 
 std::pair<double, double> Figure::geom_centre() const{
-    if (this->number_of_coords == 0){
+    if (this->coords.empty()){
         throw std::runtime_error("Фигура не имеет точек, невозможно вычислить геометрический центр.");
     }
 
@@ -85,7 +79,7 @@ std::pair<double, double> Figure::geom_centre() const{
 }
 
 Figure::operator double() const {
-    size_t n = this->number_of_coords;
+    size_t n = this->coords.size();
     if (n < 3)
         return 0.0;
 
@@ -124,8 +118,4 @@ const std::string Figure::who_am_i() const{
 
 bool Figure::operator==(const Figure& other) const{
     return this->coords == other.coords;
-}
-
-bool Figure::is_valid() const{
-    return this->number_of_coords >= 0;
 }
